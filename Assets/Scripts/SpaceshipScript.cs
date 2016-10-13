@@ -17,22 +17,22 @@ public class SpaceshipScript : MonoBehaviour {
     {
         anim = GetComponent<Animator>();
         rg2d = GetComponent<Rigidbody2D>();
-        string[] res = UnityStats.screenRes.Split('x');
-        Debug.Log(int.Parse(res[0]) + " " + int.Parse(res[1]));
+        //string[] res = UnityStats.screenRes.Split('x');
+        //Debug.Log(int.Parse(res[0]) + " " + int.Parse(res[1]));
     }
 
 	void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        //float horizontalInput = Input.GetAxis("Horizontal");
 
-        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Quaternion rotationSpaceship = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Quaternion rotationSpaceship = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
 
-        //transform.rotation = rotationSpaceship;
-        //transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+        transform.rotation = rotationSpaceship;
+        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
 
-        float rotation = transform.localEulerAngles.z + 10 * orientationSpeed * horizontalInput;
-        transform.localEulerAngles = new Vector3(0,0, rotation);
+        // float rotation = transform.localEulerAngles.z + 10 * orientationSpeed * horizontalInput;
+        //transform.localEulerAngles = new Vector3(0,0, rotation);
 
         float verticalInput = Input.GetAxis("Vertical");
         anim.SetFloat("Speed", Mathf.Abs(verticalInput));
@@ -65,8 +65,8 @@ public class SpaceshipScript : MonoBehaviour {
 
     void fire()
     {
-        projectile.transform.position = transform.position;
-        projectile.transform.localEulerAngles = transform.localEulerAngles;
+        projectile.transform.position = transform.FindChild("Canon").transform.position;
+        projectile.transform.eulerAngles = transform.FindChild("Canon").transform.eulerAngles;
         Instantiate(projectile);
     }
 }

@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Done_BGScroller.cs" />
+     <Compile Include="Assets\Scripts\EnemyScript.cs" />
      <Compile Include="Assets\Scripts\GeneratorScript.cs" />
      <Compile Include="Assets\Scripts\ProjectilScript.cs" />
      <Compile Include="Assets\Scripts\SpaceshipScript.cs" />
