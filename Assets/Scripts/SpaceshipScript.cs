@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEditor;
+using UnityEngine.UI;
 
 public class SpaceshipScript : MonoBehaviour {
 
@@ -11,6 +10,15 @@ public class SpaceshipScript : MonoBehaviour {
     public float minSpawnEnemyRange;
     public float maxSpawnEnemyRange;
 
+    public AudioClip[] laserClips;
+    public AudioClip explosion;
+
+    private AudioSource source;
+    private Text livesDisplay;
+    private GameObject deadDisplay;
+
+    public int lifePoints = 3;
+
     private Animator anim;
     private Rigidbody2D rg2d;
 
@@ -18,26 +26,25 @@ public class SpaceshipScript : MonoBehaviour {
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         rg2d = GetComponent<Rigidbody2D>();
-        //string[] res = UnityStats.screenRes.Split('x');
-        //Debug.Log(int.Parse(res[0]) + " " + int.Parse(res[1]));
-        InvokeRepeating("spawnRandomEnemy", 0f, 2f);
-        //spawnRandomEnemy();
+        InvokeRepeating("spawnRandomEnemy", 0f, 0.75f);
+
+        deadDisplay = GameObject.Find("DeadDisplay");
+        livesDisplay = GameObject.Find("LiveDisplay").GetComponent<Text>();
+        deadDisplay.SetActive(false);
     }
 
-	void FixedUpdate()
+    void FixedUpdate()
     {
-        //float horizontalInput = Input.GetAxis("Horizontal");
+        if (!GameManager.gameAlive) return;
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Quaternion rotationSpaceship = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
 
         transform.rotation = rotationSpaceship;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
-
-        // float rotation = transform.localEulerAngles.z + 10 * orientationSpeed * horizontalInput;
-        //transform.localEulerAngles = new Vector3(0,0, rotation);
 
         float verticalInput = Input.GetAxis("Vertical");
         anim.SetFloat("Speed", Mathf.Abs(verticalInput));
@@ -62,10 +69,25 @@ public class SpaceshipScript : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.CompareTag("Enemy"))
+        {
+            lifePoints--;
+            if(lifePoints < 0)
+            {
+                Die();
+            }else
+            livesDisplay.text = "Lives : " + lifePoints;
+        }
+    }
+
     void Update()
     {
+        if (!GameManager.gameAlive) return;
         if (Input.GetButtonDown("Fire1"))
             fire();
+        
     }
 
     void fire()
@@ -73,16 +95,40 @@ public class SpaceshipScript : MonoBehaviour {
         projectile.transform.position = transform.FindChild("Canon").transform.position;
         projectile.transform.eulerAngles = transform.FindChild("Canon").transform.eulerAngles;
         Instantiate(projectile);
+        int indexclip = Random.Range(0, laserClips.Length);
+        source.PlayOneShot(laserClips[indexclip], 0.5F);
     }
 
     void spawnRandomEnemy()
     {
-        float poxX = Random.Range(minSpawnEnemyRange, maxSpawnEnemyRange);
-        float posY = Random.Range(minSpawnEnemyRange, maxSpawnEnemyRange);
+        if (!GameManager.gameAlive) return;
+        float posX;
+        float posY;
+
+        do
+        {
+            posX = Random.Range(minSpawnEnemyRange, maxSpawnEnemyRange);
+            posY = Random.Range(minSpawnEnemyRange, maxSpawnEnemyRange);
+        } while ((posX < 5 && posX >-5) || (posY < 5 && posY > -5));
 
         int indexEnemy = Random.Range(0, availableEnemies.Length);
         GameObject enemy = (GameObject)Instantiate(availableEnemies[indexEnemy]);
-        enemy.transform.position = new Vector3(transform.position.x + poxX, transform.position.y + posY, 0);
-        
+        enemy.transform.position = new Vector3(transform.position.x + posX, transform.position.y + posY, 0);
+    }
+
+    void Die()
+    {
+        CancelInvoke("spawnRandomEnemy");
+        deadDisplay.SetActive(true);
+        anim.SetTrigger("Die");
+        Invoke("hide", 4f);
+        source.PlayOneShot(explosion, 1F);
+        GameManager.gameAlive = false;
+        gameObject.transform.FindChild("Canon").gameObject.SetActive(false);
+    }
+
+    private void hide()
+    {
+        gameObject.SetActive(false);
     }
 }

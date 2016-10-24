@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: aae0c9316c9ba8f4e84111632c6559d0
-timeCreated: 1476358466
+guid: 8ad53a52757c64f418e5935262921e52
+timeCreated: 1476453049
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -53,7 +53,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
@@ -66,7 +66,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 860
+        y: 1290
         width: 430
         height: 430
       alignment: 0
@@ -79,7 +79,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 430
-        y: 860
+        y: 1290
         width: 430
         height: 430
       alignment: 0
@@ -92,7 +92,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 860
-        y: 860
+        y: 1290
         width: 430
         height: 430
       alignment: 0
@@ -105,7 +105,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 430
+        y: 860
         width: 430
         height: 430
       alignment: 0
@@ -118,7 +118,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 430
-        y: 430
+        y: 860
         width: 430
         height: 430
       alignment: 0
@@ -131,7 +131,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 860
-        y: 430
+        y: 860
         width: 430
         height: 430
       alignment: 0
@@ -144,7 +144,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 430
         width: 430
         height: 430
       alignment: 0
@@ -157,7 +157,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 430
-        y: 0
+        y: 430
         width: 430
         height: 430
       alignment: 0
@@ -170,7 +170,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 860
-        y: 0
+        y: 430
         width: 430
         height: 430
       alignment: 0

@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 
 public class ProjectilScript : MonoBehaviour {
 
     public float speed;
+    private Text ScoreText;
 
     private Rigidbody2D rg2d;
     private bool seen = false;
@@ -12,7 +13,7 @@ public class ProjectilScript : MonoBehaviour {
     void Start ()
     {
         rg2d = GetComponent<Rigidbody2D>();
-	}
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -32,6 +33,7 @@ public class ProjectilScript : MonoBehaviour {
     {
         if(collider.gameObject.CompareTag("Enemy"))
         {
+            GameManager.score++;
             Destroy(gameObject);
         }
     }
