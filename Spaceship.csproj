@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\enemies\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\game\GameManager.cs" />
     <Compile Include="Assets\Scripts\game\GeneratorScript.cs" />
@@ -83,6 +84,12 @@
     <Compile Include="Assets\Scripts\player\SpaceshipScript.cs" />
     <Compile Include="Assets\Scripts\sound\SoundManagerScript.cs" />
     <Compile Include="Assets\Scripts\ui\Done_BGScroller.cs" />
+=======
+    <Compile Include="Assets\Scripts\misc\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\misc\Done_BGScroller.cs" />
+    <Compile Include="Assets\Scripts\misc\SoundManagerScript.cs" />
+    <Compile Include="Assets\Scripts\spaceship\EnemyScript.cs" />
+>>>>>>> c6cf4f5c52810ef3d219de03431554cfb21a4f1c
     <Compile Include="Assets\Scripts\ui\UIManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
